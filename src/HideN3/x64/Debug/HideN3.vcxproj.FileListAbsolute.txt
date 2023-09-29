@@ -3,8 +3,3 @@ D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.vcxproj.SuggestedBindingRedirects.
 D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.MyForm.resources
 D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.MyForm1.resources
 D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.vcxproj.GenerateResource.cache
-D:\GitHub\FileHider\src\HideN3\x64\Debug\HideN3.vcxproj.AssemblyReference.cache
-D:\GitHub\FileHider\src\HideN3\x64\Debug\HideN3.vcxproj.SuggestedBindingRedirects.cache
-D:\GitHub\FileHider\src\HideN3\x64\Debug\HideN3.MyForm.resources
-D:\GitHub\FileHider\src\HideN3\x64\Debug\HideN3.MyForm1.resources
-D:\GitHub\FileHider\src\HideN3\x64\Debug\HideN3.vcxproj.GenerateResource.cache
