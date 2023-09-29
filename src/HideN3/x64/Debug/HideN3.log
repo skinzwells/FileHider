@@ -1,0 +1,7 @@
+﻿  MyForm.cpp
+D:\ProjectsCPP\HideN3\HideN3\DataBank.h(11,2): warning C4091: static : пропускается слева от "DataBank", когда ни одна переменная не объявлена
+  MyForm1.cpp
+D:\ProjectsCPP\HideN3\HideN3\DataBank.h(11,2): warning C4091: static : пропускается слева от "DataBank", когда ни одна переменная не объявлена
+  Создание кода...
+  DataBank.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  HideN3.vcxproj -> D:\ProjectsCPP\HideN3\x64\Debug\HideN3.exe
