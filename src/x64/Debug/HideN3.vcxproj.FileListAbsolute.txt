@@ -1,0 +1,5 @@
+D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.vcxproj.AssemblyReference.cache
+D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.vcxproj.SuggestedBindingRedirects.cache
+D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.MyForm.resources
+D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.MyForm1.resources
+D:\ProjectsCPP\HideN3\HideN3\x64\Debug\HideN3.vcxproj.GenerateResource.cache
