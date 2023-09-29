@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+//#include <Windows.h>
 #include "MyForm1.h"
 #include "DataBank.h"
 //#include <fstream>
@@ -65,6 +65,7 @@ namespace HideN3 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
@@ -94,7 +95,7 @@ namespace HideN3 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(66, 22);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"Обзор";
+			this->button1->Text = L"Browse";
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::button1_Click);
 			// 
@@ -108,7 +109,7 @@ namespace HideN3 {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(501, 28);
 			this->button2->TabIndex = 2;
-			this->button2->Text = L"Показать файлы";
+			this->button2->Text = L"Show files";
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm::button2_Click);
 			// 
@@ -124,6 +125,7 @@ namespace HideN3 {
 			this->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->MaximizeBox = false;
 			this->Name = L"MyForm";
@@ -144,17 +146,19 @@ namespace HideN3 {
 
 		folderBrowserDialog1->ShowDialog();
 
-		String^ filename = folderBrowserDialog1->SelectedPath;
+		String^ filepath = folderBrowserDialog1->SelectedPath;
 
-		textBox1->Text = filename;
-		if (filename == "") {
-			MessageBox::Show("Выбери папку, не найобуй!");
+		textBox1->Text = filepath;
+		if (filepath == "") {
+			MessageBox::Show("Choose the folder!!!");
 		}
 		else {
 			button2->Visible = true;
 		}
+		String^* filename = &filepath;
 		
-		DataBank::FileName4 = folderBrowserDialog1->SelectedPath;
+		
+		DataBank::FilePath = *filename;
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		MyForm1^ f2 = gcnew MyForm1();

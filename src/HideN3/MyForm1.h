@@ -1,10 +1,13 @@
 #pragma once
-#include <fstream>
+//#include <fstream>
+#include <msclr\marshal.h>
 #include <msclr/marshal_cppstd.h>
+#include <msclr/marshal_atl.h>
+#include <msclr/marshal_windows.h>
 #include <vcclr.h>
-#include <filesystem>
+//#include <filesystem>
 #include "DataBank.h"
-namespace fs = std::filesystem;
+//namespace fs = std::filesystem;
 namespace HideN3 {
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -13,6 +16,7 @@ namespace HideN3 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::IO;
+	using namespace msclr::interop;
 
 	/// <summary>
 	/// Summary for MyForm1
@@ -44,6 +48,7 @@ namespace HideN3 {
 
 
 
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -71,7 +76,7 @@ namespace HideN3 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(158, 27);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"Скрыть";
+			this->button1->Text = L"Hide file";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm1::button1_Click);
 			// 
@@ -84,7 +89,7 @@ namespace HideN3 {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(163, 27);
 			this->button2->TabIndex = 1;
-			this->button2->Text = L"Закрыть";
+			this->button2->Text = L"Close";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &MyForm1::button2_Click);
 			// 
@@ -100,6 +105,7 @@ namespace HideN3 {
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(335, 436);
 			this->listBox1->TabIndex = 2;
+			this->listBox1->DoubleClick += gcnew System::EventHandler(this, &MyForm1::listBox1_DoubleClick);
 			// 
 			// MyForm1
 			// 
@@ -122,45 +128,57 @@ namespace HideN3 {
 			this->ResumeLayout(false);
 
 		}
+		auto Hider() {
+			marshal_context^ context = gcnew marshal_context();
+
+			DataBank db;
+
+			String^ path = db.FilePath + "\\" + listBox1->SelectedItem;
+
+			pin_ptr<const wchar_t> wfilename = PtrToStringChars(path);
+
+			std::string converted_filename2 = marshal_as< std::string >(path);
+
+			String^ cd = "cd " + path;
+
+			std::string hidefile = "attrib +h +s \"" + converted_filename2 + "\"";
+			std::string showfile = "attrib -h -s \"" + converted_filename2 + "\"";
+
+			const char* cfilename = context->marshal_as< const char* >(cd);
+
+			int attr = GetFileAttributes(wfilename);
+			if ((attr & FILE_ATTRIBUTE_HIDDEN) == 0) {
+				system(cfilename);
+				system(hidefile.c_str());
+			}
+			else {
+				System::Windows::Forms::DialogResult dr = MessageBox::Show("Show file?", "File alrealy hidden!", MessageBoxButtons::YesNo);
+				if (dr == System::Windows::Forms::DialogResult::Yes)
+				{
+					system(cfilename);
+					system(showfile.c_str());
+				}
+			}
+		}
 #pragma endregion
 	private: System::Void MyForm1_Load(System::Object^ sender, System::EventArgs^ e) {
 		this->Opacity = 0.9;
-		//FolderBrowserDialog^ folderBrowserDialog1 = gcnew FolderBrowserDialog;
-		String^ filename1 = DataBank::FileName4;
+		DataBank db;
 
-		//pin_ptr<const wchar_t> wfilename = PtrToStringChars(filename1);
-		//std::string converted_filename = msclr::interop::marshal_as< std::string >(filename1);
+		String^ filename1 = db.FilePath;
+
 		auto di = gcnew DirectoryInfo(filename1);
 		for each (auto f in di->GetFiles("*")) listBox1->Items->Add(f->Name);
-
 
 	}
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->Close();
 	}
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ filename2 = DataBank::FileName4;
-		String^ filename3 = filename2 + "\\" + listBox1->SelectedItem;
-		pin_ptr<const wchar_t> wfilename = PtrToStringChars(filename3);
-		std::string converted_filename = msclr::interop::marshal_as< std::string >(filename2);
-
-		int attr = GetFileAttributes(wfilename);
-		if ((attr & FILE_ATTRIBUTE_HIDDEN) == 0) {
-			system(("cd " + converted_filename).c_str());
-			filename2 = filename2 + "\\" + listBox1->SelectedItem;
-			std::string converted_filename2 = msclr::interop::marshal_as< std::string >(filename2);
-			system(("attrib +h +s " + converted_filename2).c_str());
-		}
-		else {
-			System::Windows::Forms::DialogResult dr = MessageBox::Show("Раскрыть файл?", "Файл уже скрыт!", MessageBoxButtons::YesNo);
-			if (dr == System::Windows::Forms::DialogResult::Yes)
-			{
-				system(("cd " + converted_filename).c_str());
-				filename2 = filename2 + "\\" + listBox1->SelectedItem;
-				std::string converted_filename2 = msclr::interop::marshal_as< std::string >(filename2);
-				system(("attrib -h -s " + converted_filename2).c_str());
-			}
-		}
+		Hider();
 	}
+private: System::Void listBox1_DoubleClick(System::Object^ sender, System::EventArgs^ e) {
+		Hider();
+}
 };
 }

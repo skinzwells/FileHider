@@ -5,8 +5,12 @@ using namespace System::Collections;
 using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
-static ref class DataBank
+
+ref class DataBank
 {
-public: static String^ FileName4;
+public:
+	static String^ FilePath;
+
+
 };
 

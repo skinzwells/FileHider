@@ -1,7 +1,8 @@
 #include "MyForm.h"
-#include <string>
+//#include <string>
 #include <Windows.h>
-#include <fstream>
+//#include <fstream>
+//#include <iostream>
 
 using namespace HideN3;
 

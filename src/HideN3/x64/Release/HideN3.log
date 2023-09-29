@@ -1,1 +1,7 @@
-﻿  HideN3.vcxproj -> D:\ProjectsCPP\HideN3\x64\Release\HideN3.exe
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (HideN3.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  DataBank.cpp
+  MyForm.cpp
+  MyForm1.cpp
+  Generating Code...
+  DataBank.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  HideN3.vcxproj -> D:\ProjectsCPP\HideN3\x64\Release\FileHider.exe
